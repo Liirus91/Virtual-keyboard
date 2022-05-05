@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ESLintPlugin = require("eslint-webpack-plugin");
 
 let mode = "development";
 if (process.env.NODE_ENV === "production") {
@@ -14,6 +15,7 @@ const plugins = [
   new MiniCssExtractPlugin({
     filename: "[name].[contenthash].css",
   }),
+  new ESLintPlugin({ emitWarning: false }),
 ];
 
 module.exports = {
@@ -31,17 +33,20 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.(html)$/, use: ["html-loader"] },
+      { test: /\.(html)$/, exclude: /node_modules/, use: ["html-loader"] },
       {
         test: /\.(css)$/i,
+        exclude: /node_modules/,
         use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
       {
         test: /\.(png|jpe?g|gif|svg|webp|ico)$/i,
+        exclude: /node_modules/,
         type: mode === "production" ? "asset" : "asset/resource",
       },
       {
         test: /\.(woff2?|eot|ttf|otf)$/i,
+        exclude: /node_modules/,
         type: "asset/resource",
       },
     ],
