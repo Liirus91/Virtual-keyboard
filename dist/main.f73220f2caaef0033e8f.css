@@ -1,5 +1,4 @@
-@import url("http://fonts.googleapis.com/css?family=Lato:400,700");
-
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700);
 * {
   margin: 0;
   padding: 0;
@@ -79,7 +78,19 @@ body {
 }
 
 .keys.remove {
-  animation: keys_animation 0.5s forwards;
+  -webkit-animation: keys_animation 0.5s forwards;
+          animation: keys_animation 0.5s forwards;
+}
+
+@-webkit-keyframes keys_animation {
+  0% {
+    background-color: black;
+    color: aliceblue;
+  }
+  100% {
+    background-color: aliceblue;
+    color: black;
+  }
 }
 
 @keyframes keys_animation {
@@ -92,3 +103,6 @@ body {
     color: black;
   }
 }
+
+
+/*# sourceMappingURL=main.f73220f2caaef0033e8f.css.map*/
