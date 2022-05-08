@@ -3,14 +3,14 @@ import {
   insertTextAtCursor,
   deleteTextBeforeCursor,
   toUpperCase,
-} from "./assets/fuctions.js";
+} from "./assets/scripts/fuctions.js";
 import {
   firstRowKeys,
   secondRowKeys,
   thirdRowKeys,
   fourthRowKeys,
   fifthRowKeys,
-} from "./assets/keys";
+} from "./assets/scripts/keys";
 
 let firstRowCurrentLanguage = firstRowKeys();
 let secondRowCurrentLanguage = secondRowKeys();
@@ -426,15 +426,15 @@ for (let index = 0; index < keys.length; index++) {
     if (keyname != "Caps Lock") {
       keys[index].classList.remove("active");
       keys[index].classList.add("remove");
-      if (
-        leftShiftKey.classList.contains("remove") ||
-        rightShiftKey.classList.contains("remove") ||
-        !capsLockKey.classList.contains("active")
-      ) {
-        const keys = document.querySelectorAll(".keys");
-        keys.forEach((el) => (el.innerText = el.getAttribute("keyname")));
-      }
-      setTimeout(() => keys[index].classList.remove("remove"), 200);
     }
+    if (
+      leftShiftKey.classList.contains("remove") ||
+      rightShiftKey.classList.contains("remove") ||
+      !capsLockKey.classList.contains("active")
+    ) {
+      const keys = document.querySelectorAll(".keys");
+      keys.forEach((el) => (el.innerText = el.getAttribute("keyname")));
+    }
+    setTimeout(() => keys[index].classList.remove("remove"), 200);
   });
 }
