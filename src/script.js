@@ -2,92 +2,20 @@ import "./style.css";
 import {
   insertTextAtCursor,
   deleteTextBeforeCursor,
-  // deleteTextAfterCursor,
-} from "./fuctions.js";
+  toUpperCase,
+} from "./assets/fuctions.js";
+import {
+  firstRowKeys,
+  secondRowKeys,
+  thirdRowKeys,
+  fourthRowKeys,
+  fifthRowKeys,
+} from "./assets/keys";
 
-const firstRowKeys = [
-  "`",
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "0",
-  "-",
-  "=",
-  "Backspace",
-];
-const firstRowUpperKeys = [
-  "~",
-  "!",
-  "@",
-  "#",
-  "$",
-  "%",
-  "^",
-  "&",
-  "*",
-  "(",
-  ")",
-  "_",
-  "+",
-  "Backspace",
-];
-const secondRowKeys = [
-  "Tab",
-  "q",
-  "w",
-  "e",
-  "r",
-  "t",
-  "y",
-  "u",
-  "i",
-  "o",
-  "p",
-  "[",
-  "]",
-  "\\",
-  "Del",
-];
-
-const thirdRowKeys = [
-  "Caps Lock",
-  "a",
-  "s",
-  "d",
-  "f",
-  "g",
-  "h",
-  "j",
-  "k",
-  "l",
-  ";",
-  "'",
-  "Enter",
-];
-
-const fourthRowKeys = [
-  "Shift",
-  "z",
-  "x",
-  "c",
-  "v",
-  "b",
-  "n",
-  "m",
-  ",",
-  ".",
-  "/",
-  "▲",
-  "Shift",
-];
-
-const fifthRowKeys = ["Ctrl", "Win", "Alt", " ", "Alt", "◄", "▼", "►", "Ctrl"];
+let firstRowCurrentLanguage = firstRowKeys();
+let secondRowCurrentLanguage = secondRowKeys();
+let thirdRowCurrentLanguage = thirdRowKeys();
+let fourthRowCurrentLanguage = fourthRowKeys();
 
 const container = document.createElement("div");
 container.className = "container";
@@ -105,17 +33,27 @@ const keyboardKeys = document.createElement("div");
 keyboardKeys.className = "keyboard_keys";
 keyboardWrapp.append(keyboardKeys);
 
+const description = document.createElement("p");
+description.className = "description";
+container.append(description);
+description.innerText = "Клавиатура создана в операционной системе Windows";
+
+const language = document.createElement("p");
+language.className = "language";
+container.append(language);
+language.innerText = "Для переключения языка комбинация: левыe ctrl + alt";
+
 const firstRow = document.createElement("div");
 firstRow.className = "row";
 keyboardKeys.append(firstRow);
 
-for (let index = 0; index < firstRowKeys.length; index++) {
+for (let index = 0; index < firstRowCurrentLanguage.length; index++) {
   const key = document.createElement("div");
-  firstRowKeys[index] == "Backspace"
+  firstRowCurrentLanguage[index] == "Backspace"
     ? (key.className = "keys backspace_key")
     : (key.className = "keys");
 
-  key.innerHTML = `${firstRowKeys[index]}`;
+  key.innerHTML = `${firstRowCurrentLanguage[index]}`;
   firstRow.append(key);
 }
 
@@ -123,19 +61,19 @@ const secondRow = document.createElement("div");
 secondRow.className = "row";
 keyboardKeys.append(secondRow);
 
-for (let index = 0; index < secondRowKeys.length; index++) {
+for (let index = 0; index < secondRowCurrentLanguage.length; index++) {
   const key = document.createElement("div");
-  if (secondRowKeys[index] == "Tab") {
+  if (secondRowCurrentLanguage[index] == "Tab") {
     key.className = "keys tab_key";
-  } else if (secondRowKeys[index] == "\\") {
+  } else if (secondRowCurrentLanguage[index] == "\\") {
     key.className = "keys slash_key";
-  } else if (secondRowKeys[index] == "Del") {
+  } else if (secondRowCurrentLanguage[index] == "Del") {
     key.className = "keys del_key";
   } else {
     key.className = "keys";
   }
 
-  key.innerHTML = `${secondRowKeys[index]}`;
+  key.innerHTML = `${secondRowCurrentLanguage[index]}`;
   secondRow.append(key);
 }
 
@@ -143,17 +81,17 @@ const thirdRow = document.createElement("div");
 thirdRow.className = "row";
 keyboardKeys.append(thirdRow);
 
-for (let index = 0; index < thirdRowKeys.length; index++) {
+for (let index = 0; index < thirdRowCurrentLanguage.length; index++) {
   const key = document.createElement("div");
-  if (thirdRowKeys[index] == "Caps Lock") {
+  if (thirdRowCurrentLanguage[index] == "Caps Lock") {
     key.className = "keys capsLock_key";
-  } else if (thirdRowKeys[index] == "Enter") {
+  } else if (thirdRowCurrentLanguage[index] == "Enter") {
     key.className = "keys enter_key";
   } else {
     key.className = "keys";
   }
 
-  key.innerHTML = `${thirdRowKeys[index]}`;
+  key.innerHTML = `${thirdRowCurrentLanguage[index]}`;
   thirdRow.append(key);
 }
 
@@ -161,19 +99,19 @@ const fourthRow = document.createElement("div");
 fourthRow.className = "row";
 keyboardKeys.append(fourthRow);
 
-for (let index = 0; index < fourthRowKeys.length; index++) {
+for (let index = 0; index < fourthRowCurrentLanguage.length; index++) {
   const key = document.createElement("div");
-  if (fourthRowKeys[index] == "Shift" && index === 0) {
+  if (fourthRowCurrentLanguage[index] == "Shift" && index === 0) {
     key.className = "keys shift_key left_shift_key";
-  } else if (fourthRowKeys[index] == "Shift" && index !== 0) {
+  } else if (fourthRowCurrentLanguage[index] == "Shift" && index !== 0) {
     key.className = "keys shift_key right_shift_key";
-  } else if (fourthRowKeys[index] == "▲") {
+  } else if (fourthRowCurrentLanguage[index] == "▲") {
     key.className = "keys up_arrow_key";
   } else {
     key.className = "keys";
   }
 
-  key.innerHTML = `${fourthRowKeys[index]}`;
+  key.innerHTML = `${fourthRowCurrentLanguage[index]}`;
   fourthRow.append(key);
 }
 
@@ -226,20 +164,7 @@ let rightArrowKey = document.querySelector(".right_arrow_key");
 let upArrowKey = document.querySelector(".up_arrow_key");
 let downArrowKey = document.querySelector(".down_arrow_key");
 
-for (let index = 0; index < keys.length; index++) {
-  keys[index].setAttribute("keyname", keys[index].innerText);
-
-  keys[index].setAttribute(
-    "upperCaseName",
-    keys[index].innerText.toUpperCase()
-  );
-}
-//TODO зажатый шифт
-// for (let index = 0; index < firstRowKeys.length; index++) {
-//   document
-//     .querySelectorAll(".row:nth-child(1) > .keys")
-//     [index].setAttribute("upperCaseName", firstRowUpperKeys[index]);
-// }
+toUpperCase(keys);
 
 window.addEventListener("keydown", (e) => {
   for (let index = 0; index < keys.length; index++) {
@@ -315,6 +240,54 @@ window.addEventListener("keydown", (e) => {
       leftArrowKey.classList.add("active");
     }
   }
+
+  if (
+    (e.shiftKey && leftShiftKey.classList.contains("active")) ||
+    capsLockKey.classList.contains("active")
+  ) {
+    keys.forEach(
+      (el) =>
+        (el.innerText = el.getAttribute("uppercasename")
+          ? el.getAttribute("uppercasename")
+          : el.getAttribute("keyname"))
+    );
+  }
+  if (e.ctrlKey && e.altKey) {
+    if (localStorage.getItem("language") != "ru") {
+      localStorage.setItem("language", "ru");
+    } else {
+      localStorage.setItem("language", "en");
+    }
+    firstRowCurrentLanguage = firstRowKeys();
+    const firstRow = document.querySelectorAll(".row:nth-child(1) > div");
+    firstRow.forEach(
+      (el) =>
+        (el.innerText =
+          firstRowCurrentLanguage[Array.from(firstRow).indexOf(el)])
+    );
+    secondRowCurrentLanguage = secondRowKeys();
+    const secondRow = document.querySelectorAll(".row:nth-child(2) > div");
+    secondRow.forEach(
+      (el) =>
+        (el.innerText =
+          secondRowCurrentLanguage[Array.from(secondRow).indexOf(el)])
+    );
+    thirdRowCurrentLanguage = thirdRowKeys();
+    const thirdRow = document.querySelectorAll(".row:nth-child(3) > div");
+    thirdRow.forEach(
+      (el) =>
+        (el.innerText =
+          thirdRowCurrentLanguage[Array.from(thirdRow).indexOf(el)])
+    );
+    fourthRowCurrentLanguage = fourthRowKeys();
+    const fourthRow = document.querySelectorAll(".row:nth-child(4) > div");
+    fourthRow.forEach(
+      (el) =>
+        (el.innerText =
+          fourthRowCurrentLanguage[Array.from(fourthRow).indexOf(el)])
+    );
+    toUpperCase(keys);
+  }
 });
 
 window.addEventListener("keyup", (e) => {
@@ -379,6 +352,14 @@ window.addEventListener("keyup", (e) => {
       leftArrowKey.classList.add("remove");
     }
 
+    if (
+      leftShiftKey.classList.contains("remove") ||
+      !capsLockKey.classList.contains("active")
+    ) {
+      const keys = document.querySelectorAll(".keys");
+      keys.forEach((el) => (el.innerText = el.getAttribute("keyname")));
+    }
+
     setTimeout(() => keys[index].classList.remove("remove"), 200);
   }
 });
@@ -417,7 +398,7 @@ for (let index = 0; index < keys.length; index++) {
         insertTextAtCursor(input, "");
       }
     } else {
-      insertTextAtCursor(input, e.target.getAttribute("keyname"));
+      insertTextAtCursor(input, e.target.innerText);
     }
     if (keyname == "Caps Lock") {
       keys[index].classList.toggle("active");

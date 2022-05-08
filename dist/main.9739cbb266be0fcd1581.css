@@ -18,6 +18,14 @@ body {
   margin: 0 10px;
 }
 
+.description {
+  order: 3;
+}
+
+.language {
+  order: 4;
+}
+
 .keyboard_wrapp {
   max-width: 1008px;
   width: 100%;
@@ -41,6 +49,10 @@ body {
   align-items: center;
   margin: 4px;
   transition: 0.2s;
+}
+
+.keys:hover {
+  cursor: pointer;
 }
 
 .tab_key {
@@ -104,4 +116,4 @@ body {
 }
 
 
-/*# sourceMappingURL=main.7b357757abaaf2d3b050.css.map*/
+/*# sourceMappingURL=main.9739cbb266be0fcd1581.css.map*/
