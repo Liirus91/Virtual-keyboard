@@ -243,6 +243,7 @@ window.addEventListener("keydown", (e) => {
 
   if (
     (e.shiftKey && leftShiftKey.classList.contains("active")) ||
+    (e.shiftKey && rightShiftKey.classList.contains("active")) ||
     capsLockKey.classList.contains("active")
   ) {
     keys.forEach(
@@ -354,6 +355,7 @@ window.addEventListener("keyup", (e) => {
 
     if (
       leftShiftKey.classList.contains("remove") ||
+      rightShiftKey.classList.contains("remove") ||
       !capsLockKey.classList.contains("active")
     ) {
       const keys = document.querySelectorAll(".keys");
@@ -405,12 +407,33 @@ for (let index = 0; index < keys.length; index++) {
     } else {
       keys[index].classList.add("active");
     }
+
+    if (
+      leftShiftKey.classList.contains("active") ||
+      rightShiftKey.classList.contains("active") ||
+      capsLockKey.classList.contains("active")
+    ) {
+      keys.forEach(
+        (el) =>
+          (el.innerText = el.getAttribute("uppercasename")
+            ? el.getAttribute("uppercasename")
+            : el.getAttribute("keyname"))
+      );
+    }
   });
 
   keys[index].addEventListener("mouseup", (e) => {
     if (keyname != "Caps Lock") {
       keys[index].classList.remove("active");
       keys[index].classList.add("remove");
+      if (
+        leftShiftKey.classList.contains("remove") ||
+        rightShiftKey.classList.contains("remove") ||
+        !capsLockKey.classList.contains("active")
+      ) {
+        const keys = document.querySelectorAll(".keys");
+        keys.forEach((el) => (el.innerText = el.getAttribute("keyname")));
+      }
       setTimeout(() => keys[index].classList.remove("remove"), 200);
     }
   });
